@@ -5,8 +5,9 @@ import hashlib
 import hmac
 import base64
 import time
+import smtplib
 
-from constant import api_url
+from constant import api_url, dca_strategy
 
 
 def check_kraken_status():
@@ -56,9 +57,21 @@ def create_market_order(pair, to_invest, api_key, api_sec):
         'nonce': str(int(1000 * time.time())),
         'userref': 1,
         'ordertype': 'market',
-        'type': 'buy',
+        'type': 'sell',
         'volume': qty,
         'pair': pair,
     }
     resp = kraken_request('/0/private/AddOrder', data, api_key, api_sec)
-    return resp.json()
+    return resp.json(), ask_price
+
+
+def send_email(receiver, subject, msg, pwd):
+    sender = 'lucbesset.95@gmail.com'
+    try:
+        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+        server.login(sender, pwd)
+        msg = f"Subject: {subject}\n\n{msg}"
+        server.sendmail(sender, receiver, msg.encode('utf-8'))
+        server.quit()
+    except Exception as e:
+        print(f"Error: Unable to send email to {receiver}. {e}")
