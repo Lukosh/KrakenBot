@@ -1,3 +1,5 @@
+.idea
+__pycache__
 KRAKEN_BOT.pdf
 brouillon.py
 mail.py
