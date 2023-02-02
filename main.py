@@ -4,7 +4,7 @@ import datetime as dt
 import os
 
 from function import check_kraken_status, create_market_order, send_email
-from constant import dca_strategy, receiver_email, _kraken_service_name, _api_key_user, _api_secret_user, \
+from constant import dca_strategy, receiver_email, root, _kraken_service_name, _api_key_user, _api_secret_user, \
     _gmail_service_name, _gmail_user
 
 
@@ -23,9 +23,9 @@ for asset in dca_strategy:
     tday = dt.datetime.today()
     if not order['error']:
         way, qty, pair, at, order_type = order['result']['descr']['order'].split(' ')
-        subject = f"DCA Kraken - {tday.strftime('%b %d, %Y [%H:%M]')}"
+        subject = f"DCA Kraken - {asset['ticker']} {round(price, 0)}"
         msg = order['result']['descr']['order'].replace(asset['pair'], asset['ticker'])
-        msg += f" [{round(float(qty) * price, 2)}€]"
+        msg += f" [{round(float(qty) * price, 2)}€]\n{tday.strftime('%b %d, %Y (%H:%M)')}"
         send_email(receiver_email, subject, msg, pwd)
 
         log.append({
@@ -38,14 +38,14 @@ for asset in dca_strategy:
             'price': float(qty) * price,
         })
     else:
-        subject = f"[FAIL] DCA Kraken - {tday.strftime('%b %d, %Y [%H:%M]')}"
-        msg = f"{asset['ticker']}: {order['error']}"
+        subject = f"[FAIL] DCA Kraken - {asset['ticker']} {round(price, 0)}"
+        msg = f"{asset['ticker']}: {order['error']}\n{tday.strftime('%b %d, %Y (%H:%M)')}"
         send_email(receiver_email, subject, msg, pwd)
 
-if os.path.exists('log/logs.pkl'):
-    logs = pd.read_pickle('log/logs.pkl')
+if os.path.exists(root + 'log/logs.pkl'):
+    logs = pd.read_pickle(root + 'log/logs.pkl')
     log_df = pd.DataFrame(log)
     logs = pd.concat([logs, log_df], ignore_index=True)
 else:
     logs = pd.DataFrame(log)
-logs.to_pickle('log/logs.pkl')
+logs.to_pickle(root + 'log/logs.pkl')

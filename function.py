@@ -7,7 +7,7 @@ import base64
 import time
 import smtplib
 
-from constant import api_url, dca_strategy
+from constant import api_url
 
 
 def check_kraken_status():
@@ -22,7 +22,8 @@ def get_kraken_signature(urlpath, data, secret):
     postdata = urllib.parse.urlencode(data)
     encoded = (str(data['nonce']) + postdata).encode()
     message = urlpath.encode() + hashlib.sha256(encoded).digest()
-
+    with open('/Users/lucbesset/Desktop/Python/KrakenBot/log/message_signature.txt', 'w') as text_file:
+        text_file.write(str(secret))
     mac = hmac.new(base64.b64decode(secret), message, hashlib.sha512)
     sigdigest = base64.b64encode(mac.digest())
     return sigdigest.decode()
@@ -57,7 +58,7 @@ def create_market_order(pair, to_invest, api_key, api_sec):
         'nonce': str(int(1000 * time.time())),
         'userref': 1,
         'ordertype': 'market',
-        'type': 'sell',
+        'type': 'buy',
         'volume': qty,
         'pair': pair,
     }

@@ -9,14 +9,15 @@ api_url = 'https://api.kraken.com'
 dca_strategy = [
     {
         'pair': 'XBTUSDT',
-        'amount': 5,  # Amount to buy in $
+        'amount': 10,  # Amount to buy in $
         'ticker': 'BTC',
     },
     {
         'pair': 'ETHUSDT',
-        'amount': 20,  # Amount to buy in $
+        'amount': 10,  # Amount to buy in $
         'ticker': 'ETH',
     }
 ]
 
 receiver_email = 'lucbesset.95@gmail.com'
+root = '/Users/lucbesset//Desktop/Python/KrakenBot/'
