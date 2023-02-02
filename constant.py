@@ -9,12 +9,12 @@ api_url = 'https://api.kraken.com'
 dca_strategy = [
     {
         'pair': 'XBTUSDT',
-        'amount': 10,  # Amount to buy in $
+        'amount': 150,  # Amount to buy in $
         'ticker': 'BTC',
     },
     {
         'pair': 'ETHUSDT',
-        'amount': 10,  # Amount to buy in $
+        'amount': 100,  # Amount to buy in $
         'ticker': 'ETH',
     }
 ]

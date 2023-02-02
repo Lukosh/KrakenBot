@@ -22,8 +22,6 @@ def get_kraken_signature(urlpath, data, secret):
     postdata = urllib.parse.urlencode(data)
     encoded = (str(data['nonce']) + postdata).encode()
     message = urlpath.encode() + hashlib.sha256(encoded).digest()
-    with open('/Users/lucbesset/Desktop/Python/KrakenBot/log/message_signature.txt', 'w') as text_file:
-        text_file.write(str(secret))
     mac = hmac.new(base64.b64decode(secret), message, hashlib.sha512)
     sigdigest = base64.b64encode(mac.digest())
     return sigdigest.decode()
