@@ -1,9 +1,5 @@
-_kraken_service_name = 'Kraken'
-_api_key_user = 'API_KEY_KRAKEN'
-_api_secret_user = 'API_SEC_KRAKEN'
-_gmail_service_name = 'Gmail'
-_gmail_user = 'lucbesset.95@gmail.com'
-
+gmail_user = 'lucbesset.95@gmail.com'
+root = '/Users/lucbesset//Desktop/Python/KrakenBot/'
 api_url = 'https://api.kraken.com'
 
 dca_strategy = [
@@ -18,6 +14,3 @@ dca_strategy = [
         'ticker': 'ETH',
     }
 ]
-
-receiver_email = 'lucbesset.95@gmail.com'
-root = '/Users/lucbesset//Desktop/Python/KrakenBot/'
