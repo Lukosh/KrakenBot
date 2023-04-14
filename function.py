@@ -8,6 +8,7 @@ import time
 import smtplib
 
 from constant import api_url
+from private import gmail_user
 
 
 def check_kraken_status():
@@ -65,7 +66,7 @@ def create_market_order(pair, to_invest, api_key, api_sec):
 
 
 def send_email(receiver, subject, msg, pwd):
-    sender = 'lucbesset.95@gmail.com'
+    sender = gmail_user
     try:
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
         server.login(sender, pwd)
