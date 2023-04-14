@@ -3,7 +3,8 @@ import datetime as dt
 import os
 
 from keys import _api_key, _api_sec, _pwd
-from constant import dca_strategy, gmail_user, root
+from private import gmail_user, root
+from constant import dca_strategy
 from function import check_kraken_status, create_market_order, send_email
 
 
